@@ -1,20 +1,109 @@
 {
-  "script": "MetrologyTestInterface.py",
-  "onefile": true,
-  "console": false,
-  "hidden-imports": ["matplotlib.backends.backend-pdf"],
-  "add-data": [
-    "C:/Program Files (x86)/Aerotech/Controller Version Selector/Bin/Automation1/2.7.1/release/APIs/Python/automation1/automation1/references/Automation1C.dll;automation1/references/Automation1C.dll",
-    "C:/Program Files (x86)/Aerotech/Controller Version Selector/Bin/Automation1/2.7.1/release/APIs/Python/automation1/automation1/references/Automation1C64.dll;automation1/references/Automation1C64.dll",
-    "C:/Program Files (x86)/Aerotech/Controller Version Selector/Bin/Automation1/2.7.1/release/APIs/Python/automation1/automation1/references/Automation1Compiler.dll;automation1/references/Automation1Compiler.dll",
-    "C:/Program Files (x86)/Aerotech/Controller Version Selector/Bin/Automation1/2.7.1/release/APIs/Python/automation1/automation1/references/Automation1Compiler64.dll;automation1/references/Automation1Compiler64.dll",
-    "C:/Users/tbates/Python/RotaryAndAngles/AerotechDataCal.py;AerotechDataCal.py",
-    "C:/Users/tbates/Python/RotaryAndAngles/AerotechFormat.py;AerotechFormat.py",
-    "C:/Users/tbates/Python/RotaryAndAngles/AerotechLogo.png;AerotechLogo.png",
-    "C:/Users/tbates/Python/RotaryAndAngles/AerotechPDF.py;AerotechPDF.py",
-    "C:/Users/tbates/Python/RotaryAndAngles/AngularTest.py;AngularTest.py",
-    "C:/Users/tbates/Python/RotaryAndAngles/Logger.py;Logger.py",
-    "C:/Users/tbates/Python/RotaryAndAngles/RotaryCalTest.py;RotaryCalTest.py",
-    "C:/Users/tbates/Python/RotaryAndAngles/RS232.py;RS232.py"
-  ]
+ "version": "auto-py-to-exe-configuration_v1",
+ "pyinstallerOptions": [
+  {
+   "optionDest": "noconfirm",
+   "value": true
+  },
+  {
+   "optionDest": "filenames",
+   "value": "MetrologyTestInterface.py"
+  },
+  {
+   "optionDest": "onefile",
+   "value": true
+  },
+  {
+   "optionDest": "console",
+   "value": false
+  },
+  {
+   "optionDest": "clean_build",
+   "value": false
+  },
+  {
+   "optionDest": "strip",
+   "value": false
+  },
+  {
+   "optionDest": "noupx",
+   "value": false
+  },
+  {
+   "optionDest": "disable_windowed_traceback",
+   "value": false
+  },
+  {
+   "optionDest": "uac_admin",
+   "value": false
+  },
+  {
+   "optionDest": "uac_uiaccess",
+   "value": false
+  },
+  {
+   "optionDest": "argv_emulation",
+   "value": false
+  },
+  {
+   "optionDest": "bootloader_ignore_signals",
+   "value": false
+  },
+  {
+   "optionDest": "datas",
+   "value": "AerotechDataCal.py;."
+  },
+  {
+   "optionDest": "datas",
+   "value": "AerotechFormat.py;."
+  },
+  {
+   "optionDest": "datas",
+   "value": "AerotechLogo.png;."
+  },
+  {
+   "optionDest": "datas",
+   "value": "AerotechPDF.py;."
+  },
+  {
+   "optionDest": "datas",
+   "value": "AngularTest.py;."
+  },
+  {
+   "optionDest": "datas",
+   "value": "Logger.py;."
+  },
+  {
+   "optionDest": "datas",
+   "value": "RotaryCalTest.py;."
+  },
+  {
+   "optionDest": "datas",
+   "value": "RS232.py;."
+  },
+  {
+   "optionDest": "datas",
+   "value": "Automation1C.dll;."
+  },
+  {
+   "optionDest": "datas",
+   "value": "Automation1C64.dll;."
+  },
+  {
+   "optionDest": "datas",
+   "value": "Automation1Compiler.dll;."
+  },
+  {
+   "optionDest": "datas",
+   "value": "Automation1Compiler64.dll;."
+  },
+  {
+   "optionDest": "hiddenimports",
+   "value": "matplotlib.backends.backend-pdf"
+  }
+ ],
+ "nonPyinstallerOptions": {
+  "increaseRecursionLimit": true,
+  "manualArguments": ""
+ }
 }
