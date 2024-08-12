@@ -33,7 +33,10 @@ jobs:
 
     - name: Check dist directory
       run: ls -la dist  # Check if the .exe file is generated
-
+      
+    - name: Rename executable for Windows
+      run: mv dist/MetrologyTestInterface dist/MetrologyTestInterface.exe  # Rename for .exe
+      
     - name: Upload .exe Artifact
       uses: actions/upload-artifact@v4
       with:
