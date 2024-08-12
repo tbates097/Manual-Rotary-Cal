@@ -1,4 +1,4 @@
-name: Release README
+name: Release Repository
 
 on:
   push:
@@ -16,18 +16,21 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
 
-    - name: Create README package
+    - name: Create Package
       run: |
+        # Create a directory for the package
         mkdir -p release_package
-        cp README.md release_package/
+        # Copy all files to the package directory
+        cp -r * release_package/
+        # Create a zip archive of all files in the repository
         cd release_package
-        zip -r readme_package.zip README.md
+        zip -r repository_package.zip .
 
     - name: Upload Release Artifact
       uses: actions/upload-artifact@v4
       with:
-        name: readme_package.zip
-        path: release_package/readme_package.zip
+        name: repository_package.zip
+        path: release_package/repository_package.zip
 
   release:
     needs: build
@@ -40,7 +43,7 @@ jobs:
     - name: Download Artifact
       uses: actions/download-artifact@v4
       with:
-        name: readme_package.zip
+        name: repository_package.zip
 
     - name: Install GitHub CLI
       run: sudo apt-get install gh -y
@@ -48,11 +51,21 @@ jobs:
     - name: Create release
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        tag: "v1.0.0-${{ github.run_number }}"
+        tag: "v1.0.${{ github.run_number }}"
       run: |
+        # Ensure the release_package directory exists
+        if [ -d "release_package" ]; then
+          echo "Directory exists."
+        else
+          mkdir release_package
+        fi
+
+        # Move the downloaded artifact to the release_package directory
+        mv repository_package.zip release_package/
+
+        # Create the release
         gh release create "$tag" \
             --repo="$GITHUB_REPOSITORY" \
             --title="${tag#v}" \
             --generate-notes \
-            release_package/readme_package.zip
-
+            release_package/repository_package.zip
