@@ -40,23 +40,24 @@ jobs:
           "console": false,
           "hidden-imports": ["matplotlib.backends.backend-pdf"],
           "add-data": [
-            "C:/Program Files (x86)/Aerotech/Controller Version Selector/Bin/Automation1/2.7.1/release/APIs/Python/automation1/automation1/references/Automation1C.dll",
-            "C:/Program Files (x86)/Aerotech/Controller Version Selector/Bin/Automation1/2.7.1/release/APIs/Python/automation1/automation1/references/Automation1C64.dll",
-            "C:/Program Files (x86)/Aerotech/Controller Version Selector/Bin/Automation1/2.7.1/release/APIs/Python/automation1/automation1/references/Automation1Compiler.dll",
-            "C:/Program Files (x86)/Aerotech/Controller Version Selector/Bin/Automation1/2.7.1/release/APIs/Python/automation1/automation1/references/Automation1Compiler64.dll",
-            "C:/Users/tbates/Python/RotaryAndAngles/AerotechDataCal.py",
-            "C:/Users/tbates/Python/RotaryAndAngles/AerotechFormat.py",
-            "C:/Users/tbates/Python/RotaryAndAngles/AerotechLogo.png",
-            "C:/Users/tbates/Python/RotaryAndAngles/AerotechPDF.py",
-            "C:/Users/tbates/Python/RotaryAndAngles/AngularTest.py",
-            "C:/Users/tbates/Python/RotaryAndAngles/Logger.py",
-            "C:/Users/tbates/Python/RotaryAndAngles/RotaryCalTest.py",
-            "C:/Users/tbates/Python/RotaryAndAngles/RS232.py
+            "C:/Program Files (x86)/Aerotech/Controller Version Selector/Bin/Automation1/2.7.1/release/APIs/Python/automation1/automation1/references/Automation1C.dll;automation1/references/Automation1C.dll",
+            "C:/Program Files (x86)/Aerotech/Controller Version Selector/Bin/Automation1/2.7.1/release/APIs/Python/automation1/automation1/references/Automation1C64.dll;automation1/references/Automation1C64.dll",
+            "C:/Program Files (x86)/Aerotech/Controller Version Selector/Bin/Automation1/2.7.1/release/APIs/Python/automation1/automation1/references/Automation1Compiler.dll;automation1/references/Automation1Compiler.dll",
+            "C:/Program Files (x86)/Aerotech/Controller Version Selector/Bin/Automation1/2.7.1/release/APIs/Python/automation1/automation1/references/Automation1Compiler64.dll;automation1/references/Automation1Compiler64.dll",
+            "C:/Users/tbates/Python/RotaryAndAngles/AerotechDataCal.py;AerotechDataCal.py",
+            "C:/Users/tbates/Python/RotaryAndAngles/AerotechFormat.py;AerotechFormat.py",
+            "C:/Users/tbates/Python/RotaryAndAngles/AerotechLogo.png;AerotechLogo.png",
+            "C:/Users/tbates/Python/RotaryAndAngles/AerotechPDF.py;AerotechPDF.py",
+            "C:/Users/tbates/Python/RotaryAndAngles/AngularTest.py;AngularTest.py",
+            "C:/Users/tbates/Python/RotaryAndAngles/Logger.py;Logger.py",
+            "C:/Users/tbates/Python/RotaryAndAngles/RotaryCalTest.py;RotaryCalTest.py",
+            "C:/Users/tbates/Python/RotaryAndAngles/RS232.py;RS232.py"
           ]
         }' > temp_build_dir/build_config.json
         
         # Run auto-py-to-exe in command-line mode using the configuration file
         python -m auto_py_to_exe --config temp_build_dir/build_config.json --output-dir dist
+
 
     - name: Check dist directory
       run: dir dist  # Use 'dir' on Windows to list directory contents
