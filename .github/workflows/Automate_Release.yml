@@ -1,4 +1,4 @@
-name: Release Repository
+name: Release Python Project
 
 on:
   push:
@@ -16,21 +16,29 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
 
-    - name: Create Package
-      run: |
-        # Create a directory for the package
-        mkdir -p release_package
-        # Copy all files except the release_package directory to the package directory
-        rsync -av --progress --exclude='release_package' ./ release_package/
-        # Create a zip archive of all files in the repository
-        cd release_package
-        zip -r repository_package.zip .
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.x'
 
-    - name: Upload Release Artifact
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pyinstaller
+        # If your project has requirements.txt, uncomment the next line
+        # pip install -r requirements.txt
+
+    - name: Create .exe using pyinstaller
+      run: |
+        mkdir -p dist
+        # Replace 'main.py' with the entry point of your project
+        pyinstaller --onefile --distpath dist main.py
+
+    - name: Upload .exe Artifact
       uses: actions/upload-artifact@v4
       with:
-        name: repository_package.zip
-        path: release_package/repository_package.zip
+        name: application.exe
+        path: dist/main.exe
 
   release:
     needs: build
@@ -43,7 +51,7 @@ jobs:
     - name: Download Artifact
       uses: actions/download-artifact@v4
       with:
-        name: repository_package.zip
+        name: application.exe
 
     - name: Install GitHub CLI
       run: sudo apt-get install gh -y
@@ -53,19 +61,9 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         tag: "v1.0.${{ github.run_number }}"
       run: |
-        # Ensure the release_package directory exists
-        if [ -d "release_package" ]; then
-          echo "Directory exists."
-        else
-          mkdir release_package
-        fi
-
-        # Move the downloaded artifact to the release_package directory
-        mv repository_package.zip release_package/
-
         # Create the release
         gh release create "$tag" \
             --repo="$GITHUB_REPOSITORY" \
             --title="${tag#v}" \
             --generate-notes \
-            release_package/repository_package.zip
+            application.exe
