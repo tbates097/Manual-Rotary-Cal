@@ -20,8 +20,8 @@ jobs:
       run: |
         # Create a directory for the package
         mkdir -p release_package
-        # Copy all files to the package directory
-        cp -r * release_package/
+        # Copy all files except the release_package directory to the package directory
+        rsync -av --progress --exclude='release_package' ./ release_package/
         # Create a zip archive of all files in the repository
         cd release_package
         zip -r repository_package.zip .
