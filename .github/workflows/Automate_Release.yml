@@ -31,11 +31,14 @@ jobs:
         mkdir -p dist
         pyinstaller --onefile --distpath dist MetrologyTestInterface.py
 
+    - name: Check dist directory
+      run: ls -la dist  # Check if the .exe file is generated
+
     - name: Upload .exe Artifact
       uses: actions/upload-artifact@v4
       with:
-        name: application  # Ensure this name is consistent
-        path: dist/MetrologyTestInterface.exe  # Ensure this path is correct
+        name: application
+        path: dist/MetrologyTestInterface.exe  # Ensure this path matches the actual file name and location
 
   release:
     needs: build
@@ -48,7 +51,7 @@ jobs:
     - name: Download Artifact
       uses: actions/download-artifact@v4
       with:
-        name: application  # Ensure this name matches the upload step
+        name: application
 
     - name: Install GitHub CLI
       run: sudo apt-get install gh -y
@@ -62,4 +65,4 @@ jobs:
             --repo="$GITHUB_REPOSITORY" \
             --title="${tag#v}" \
             --generate-notes \
-            application.exe
+            MetrologyTestInterface.exe
