@@ -21,17 +21,42 @@ jobs:
       with:
         python-version: '3.x'
 
-    - name: Install dependencies
+    - name: Install auto-py-to-exe
       run: |
         python -m pip install --upgrade pip
-        pip install numpy  # Install numpy or any other required package
-        # Alternatively, if you have a requirements.txt file, use the following:
+        pip install auto-py-to-exe
+        # If you have other dependencies in requirements.txt, you can install them here:
         # pip install -r requirements.txt
 
-    - name: Create .exe using pyinstaller
+    - name: Create .exe using auto-py-to-exe
       run: |
-        mkdir -p dist
-        pyinstaller --onefile --distpath dist --hidden-import=numpy MetrologyTestInterface.py
+        # Create a temporary directory to store the build configuration file
+        mkdir -p temp_build_dir
+        
+        # Define the auto-py-to-exe configuration in a JSON file
+        echo '{ 
+          "script": "MetrologyTestInterface.py", 
+          "onefile": true, 
+          "console": false,
+          "hidden-imports": ["matplotlib.backends.backend-pdf"],
+          "add-data": [
+            "C:/Program Files (x86)/Aerotech/Controller Version Selector/Bin/Automation1/2.7.1/release/APIs/Python/automation1/automation1/references/Automation1C.dll",
+            "C:/Program Files (x86)/Aerotech/Controller Version Selector/Bin/Automation1/2.7.1/release/APIs/Python/automation1/automation1/references/Automation1C64.dll",
+            "C:/Program Files (x86)/Aerotech/Controller Version Selector/Bin/Automation1/2.7.1/release/APIs/Python/automation1/automation1/references/Automation1Compiler.dll",
+            "C:/Program Files (x86)/Aerotech/Controller Version Selector/Bin/Automation1/2.7.1/release/APIs/Python/automation1/automation1/references/Automation1Compiler64.dll",
+            "C:/Users/tbates/Python/RotaryAndAngles/AerotechDataCal.py",
+            "C:/Users/tbates/Python/RotaryAndAngles/AerotechFormat.py",
+            "C:/Users/tbates/Python/RotaryAndAngles/AerotechLogo.png",
+            "C:/Users/tbates/Python/RotaryAndAngles/AerotechPDF.py",
+            "C:/Users/tbates/Python/RotaryAndAngles/AngularTest.py",
+            "C:/Users/tbates/Python/RotaryAndAngles/Logger.py",
+            "C:/Users/tbates/Python/RotaryAndAngles/RotaryCalTest.py",
+            "C:/Users/tbates/Python/RotaryAndAngles/RS232.py
+          ]
+        }' > temp_build_dir/build_config.json
+        
+        # Run auto-py-to-exe in command-line mode using the configuration file
+        python -m auto_py_to_exe --config temp_build_dir/build_config.json --output-dir dist
 
     - name: Check dist directory
       run: dir dist  # Use 'dir' on Windows to list directory contents
