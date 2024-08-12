@@ -35,7 +35,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: application  # Ensure this name is consistent
-        path: dist/main.exe  # Ensure this path is correct
+        path: dist/MetrologyTestInterface.exe  # Ensure this path is correct
 
   release:
     needs: build
