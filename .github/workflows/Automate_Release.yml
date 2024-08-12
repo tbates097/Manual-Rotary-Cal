@@ -29,7 +29,7 @@ jobs:
     - name: Create .exe using pyinstaller
       run: |
         mkdir -p dist
-        pyinstaller --onefile --distpath dist main.py
+        pyinstaller --onefile --distpath dist MetrologyTestInterface.py
 
     - name: Upload .exe Artifact
       uses: actions/upload-artifact@v4
