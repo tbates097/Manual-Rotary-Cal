@@ -1,4 +1,4 @@
-name: Release Python Project
+name: Release Python Project for Windows
 
 on:
   push:
@@ -10,7 +10,7 @@ permissions:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest  # Use Windows runner
 
     steps:
     - name: Checkout code
@@ -32,20 +32,17 @@ jobs:
         pyinstaller --onefile --distpath dist MetrologyTestInterface.py
 
     - name: Check dist directory
-      run: ls -la dist  # Check if the .exe file is generated
-      
-    - name: Rename executable for Windows
-      run: mv dist/MetrologyTestInterface dist/MetrologyTestInterface.exe  # Rename for .exe
-      
+      run: dir dist  # Use 'dir' on Windows to list directory contents
+
     - name: Upload .exe Artifact
       uses: actions/upload-artifact@v4
       with:
         name: application
-        path: dist/MetrologyTestInterface.exe  # Ensure this path matches the actual file name and location
+        path: dist/MetrologyTestInterface.exe
 
   release:
     needs: build
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest  # Use Ubuntu for the release job to utilize GitHub CLI
 
     steps:
     - name: Checkout code
@@ -62,7 +59,7 @@ jobs:
     - name: Create release
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        tag: "v1.0.${{ github.run_number }}"
+        tag: "v1.0.0-${{ github.run_number }}"
       run: |
         gh release create "$tag" \
             --repo="$GITHUB_REPOSITORY" \
