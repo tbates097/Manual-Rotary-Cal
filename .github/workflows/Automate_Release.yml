@@ -44,7 +44,7 @@ jobs:
 
     - name: Create GitHub Release
       id: create_release
-      uses: actions/create-release@v1
+      uses: actions/create-release@v1.1.2  # Use the latest version
       with:
         tag_name: "v1.0.${{ github.run_number }}"
         release_name: "Release v1.0.${{ github.run_number }}"
