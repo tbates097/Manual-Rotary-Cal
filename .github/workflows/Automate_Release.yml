@@ -24,12 +24,14 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install pyinstaller
+        pip install numpy  # Install numpy or any other required package
+        # Alternatively, if you have a requirements.txt file, use the following:
+        # pip install -r requirements.txt
 
     - name: Create .exe using pyinstaller
       run: |
         mkdir -p dist
-        pyinstaller --onefile --distpath dist MetrologyTestInterface.py
+        pyinstaller --onefile --distpath dist --hidden-import=numpy MetrologyTestInterface.py
 
     - name: Check dist directory
       run: dir dist  # Use 'dir' on Windows to list directory contents
