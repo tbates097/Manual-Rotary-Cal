@@ -34,7 +34,7 @@ jobs:
 
       - name: Build EXE with PyInstaller
         run: |
-          pyinstaller -F MetrologyTestInterface.py
+          pyinstaller -F --hidden-import=automation1 MetrologyTestInterface.py
 
       - name: Verify EXE exists
         run: |
