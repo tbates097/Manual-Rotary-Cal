@@ -12,7 +12,6 @@ auto-py-to-exe==2.44.1
 autopep8
 Babel
 backcall
-backports.zoneinfo==0.2.1
 bcrypt
 beautifulsoup4
 bidict==0.23.1
@@ -205,7 +204,6 @@ scipy
 Send2Trash
 simple-websocket==1.0.0
 six
-slycot==0.4.0.0
 snowballstemmer
 sortedcontainers
 soupsieve
