@@ -46,7 +46,7 @@ exe = EXE(
     strip=False,
     upx=True,
     console=False,
-    onefile=True  # Ensures that the executable is bundled as a single file
+    onefile=True,  # Ensures that the executable is bundled as a single file
 )
 
 coll = COLLECT(
