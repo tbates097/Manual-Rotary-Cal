@@ -33,7 +33,6 @@ cloudpickle
 clr-loader==0.2.6
 colorama
 comm
-conda==22.9.0
 conda-content-trust
 conda-package-handling
 control
