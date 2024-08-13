@@ -20,8 +20,7 @@ jobs:
 
       - name: Clean previous builds
         run: |
-          rmdir /s /q dist
-          rmdir /s /q build
+          Remove-Item -Recurse -Force dist, build
 
       - name: Install dependencies
         run: |
