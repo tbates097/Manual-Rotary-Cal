@@ -20,7 +20,12 @@ jobs:
 
       - name: Clean previous builds
         run: |
-          Remove-Item -Recurse -Force dist, build
+          if (Test-Path "dist") {
+            Remove-Item -Recurse -Force dist
+          }
+          if (Test-Path "build") {
+            Remove-Item -Recurse -Force build
+          }
 
       - name: Install dependencies
         run: |
