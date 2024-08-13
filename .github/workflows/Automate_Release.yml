@@ -51,7 +51,7 @@ jobs:
     - name: Download Artifact
       uses: actions/download-artifact@v4
       with:
-        name: application
+        name: MetrologyTestInterface
 
     - name: Install GitHub CLI
       run: sudo apt-get install gh -y
