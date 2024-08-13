@@ -28,7 +28,7 @@ jobs:
 
       - name: List contents of automation1-api
         run: |
-          dir automation1-api\automation1\references
+          dir automation1-api/automation1/build/lib/automation1/references/
 
       - name: Clean previous builds
         run: |
