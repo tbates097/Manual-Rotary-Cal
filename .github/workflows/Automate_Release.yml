@@ -1,37 +1,36 @@
-name: Build and Release Windows Executable
+name: Build EXE using PyInstaller
 
 on:
   push:
     branches:
-      - main
+      - MetrologyTestInterface
 
 jobs:
   build:
-    runs-on: windows-latest  # Ensure this is a Windows runner
+    runs-on: windows-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.x'
-        
-    - name: Install dependencies
-      run: |
-        pip install -r requirements.txt
-        pip install auto-py-to-exe
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.12'
 
-    - name: Create .exe using auto-py-to-exe
-      run: |
-        python -m auto_py_to_exe --config auto-py-to-exe.json --output-dir dist
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install pyinstaller
 
-    - name: Upload .exe Artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: application
-        path: dist/MetrologyTestInterface.exe
+      - name: Build EXE with PyInstaller
+        run: pyinstaller metrology_test_interface.spec
+
+      - name: Upload EXE
+        uses: actions/upload-artifact@v2
+        with:
+          name: MetrologyTestInterface
+          path: dist/MetrologyTestInterface.exe
 
   release:
     needs: build
