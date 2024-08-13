@@ -1,7 +1,6 @@
 aenum==3.1.15
 altgraph==0.17.4
 arabic-reshaper==3.0.0
-argon2-cffi @ file:///opt/conda/conda-bld/argon2-cffi_1645000214183/work
 argon2-cffi-bindings @ file:///C:/ci/argon2-cffi-bindings_1644569878360/work
 arrow @ file:///C:/b/abs_cal7u12ktb/croot/arrow_1676588147908/work
 asn1crypto==1.5.1
