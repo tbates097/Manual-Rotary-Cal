@@ -26,6 +26,10 @@ jobs:
         run: |
           pip install ./automation1-api/automation1  # Install the API
 
+      - name: List contents of automation1-api
+        run: |
+          dir automation1-api\automation1\references
+
       - name: Clean previous builds
         run: |
           if (Test-Path "dist") {
