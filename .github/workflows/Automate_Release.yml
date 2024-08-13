@@ -30,7 +30,7 @@ jobs:
       - name: Install dependencies
         run: |
           pip install pyinstaller
-          pip install -r requirements.txt
+          pip install matplotlib
 
       - name: Build EXE with PyInstaller
         run: |
