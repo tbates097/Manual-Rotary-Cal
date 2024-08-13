@@ -18,6 +18,10 @@ jobs:
         with:
           python-version: '3.11'
 
+      - name: Run automation1 installation
+        run: |
+          install_automation1.bat
+      
       - name: Clean previous builds
         run: |
           if (Test-Path "dist") {
