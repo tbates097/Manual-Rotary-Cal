@@ -17,14 +17,15 @@ jobs:
       uses: actions/setup-python@v4
       with:
         python-version: '3.x'
-
-    - name: Install auto-py-to-exe
+        
+    - name: Install dependencies
       run: |
-        python -m pip install auto-py-to-exe
+        pip install -r requirements.txt
+        pip install auto-py-to-exe
 
     - name: Create .exe using auto-py-to-exe
       run: |
-        python -m auto_py_to_exe --config ./auto-py-to-exe.json --output-dir dist
+        python -m auto_py_to_exe --config auto-py-to-exe.json --output-dir dist --debug
 
     - name: Upload .exe Artifact
       uses: actions/upload-artifact@v4
