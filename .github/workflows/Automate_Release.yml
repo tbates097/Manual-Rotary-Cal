@@ -24,7 +24,7 @@ jobs:
           pip install matplotlib  # If needed
 
       - name: Build EXE with PyInstaller
-        run: pyinstaller metrology_test_interface.spec
+        run: pyinstaller -F metrology_test_interface.spec
 
       - name: Verify EXE exists
         run: |
