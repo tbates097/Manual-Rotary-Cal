@@ -42,6 +42,7 @@ jobs:
       - name: Install dependencies
         run: |
           pip install pyinstaller
+          pip install cython
           pip install -r requirements.txt
 
       - name: Build EXE with PyInstaller
