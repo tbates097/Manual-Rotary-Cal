@@ -39,6 +39,11 @@ jobs:
         with:
           name: MetrologyTestInterface
           path: dist/MetrologyTestInterface/MetrologyTestInterface.exe
+
+      - name: Download EXE
+        uses: actions/download-artifact@v4
+        with:
+          name: MetrologyTestInterface
           
   release:
     needs: build
