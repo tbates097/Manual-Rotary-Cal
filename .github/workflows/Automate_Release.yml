@@ -16,22 +16,26 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: '3.x'
+          python-version: '3.12'
 
       - name: Install dependencies
         run: |
-          pip install -r requirements.txt
           pip install pyinstaller
+          pip install matplotlib  # If needed
 
       - name: Build EXE with PyInstaller
         run: pyinstaller metrology_test_interface.spec
+
+      - name: Verify EXE exists
+        run: |
+          if [ -f "dist/MetrologyTestInterface/MetrologyTestInterface.exe" ]; then echo "EXE file exists."; else echo "EXE file does not exist!"; fi
 
       - name: Upload EXE
         uses: actions/upload-artifact@v2
         with:
           name: MetrologyTestInterface
-          path: dist/MetrologyTestInterface.exe
-
+          path: dist/MetrologyTestInterface/MetrologyTestInterface.exe
+          
   release:
     needs: build
     runs-on: ubuntu-latest  # Use Ubuntu for the release job to utilize GitHub CLI
