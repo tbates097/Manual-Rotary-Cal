@@ -28,7 +28,11 @@ jobs:
 
       - name: Verify EXE exists
         run: |
-          if [ -f "dist/MetrologyTestInterface/MetrologyTestInterface.exe" ]; then echo "EXE file exists."; else echo "EXE file does not exist!"; fi
+          if (Test-Path "dist/MetrologyTestInterface/MetrologyTestInterface.exe") {
+            Write-Host "EXE file exists."
+          } else {
+            Write-Host "EXE file does not exist!"
+          }
 
       - name: Upload EXE
         uses: actions/upload-artifact@v2
