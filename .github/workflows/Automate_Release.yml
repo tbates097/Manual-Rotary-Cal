@@ -18,9 +18,13 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Run automation1 installation
+      - name: Unzip Automation1 API
         run: |
-          cmd.exe /c InstallPythonAPI.bat
+          unzip automation1.zip -d automation1-api
+
+      - name: Install Automation1 API
+        run: |
+          pip install "./automation1-api"  # Install the API from the unzipped folder
 
       - name: Clean previous builds
         run: |
