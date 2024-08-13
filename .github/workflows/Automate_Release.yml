@@ -20,8 +20,8 @@ jobs:
 
       - name: Run automation1 installation
         run: |
-          install_automation1.bat
-      
+          cmd.exe /c install_automation1.bat
+
       - name: Clean previous builds
         run: |
           if (Test-Path "dist") {
