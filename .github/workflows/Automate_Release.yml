@@ -11,29 +11,30 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v2
 
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
           python-version: '3.11'
-          
-      - name: Log Python DLL path
+
+      - name: Clean previous builds
         run: |
-          echo "Python is installed in: ${{ runner.tool_cache }}/Python/3.11.9/x64"
-          dir ${{ runner.tool_cache }}/Python/3.11.9/x64
+          rmdir /s /q dist
+          rmdir /s /q build
 
       - name: Install dependencies
         run: |
           pip install pyinstaller
-          pip install matplotlib  # If needed
+          pip install requirements.txt
 
       - name: Build EXE with PyInstaller
-        run: pyinstaller -F MetrologyTestInterface.py
+        run: |
+          pyinstaller -F MetrologyTestInterface.py
 
       - name: Verify EXE exists
         run: |
-          if (Test-Path "dist/MetrologyTestInterface/MetrologyTestInterface.exe") {
+          if (Test-Path "dist/MetrologyTestInterface.exe") {
             Write-Host "EXE file exists."
           } else {
             Write-Host "EXE file does not exist!"
@@ -43,8 +44,8 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: MetrologyTestInterface
-          path: dist/MetrologyTestInterface/MetrologyTestInterface.exe
-
+          path: dist/MetrologyTestInterface.exe
+          
   release:
     needs: build
     runs-on: ubuntu-latest  # Use Ubuntu for the release job to utilize GitHub CLI
