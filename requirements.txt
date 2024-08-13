@@ -33,8 +33,6 @@ cloudpickle
 clr-loader==0.2.6
 colorama
 comm
-conda-content-trust
-conda-package-handling
 control
 cookiecutter
 cryptography==42.0.8
