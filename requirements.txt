@@ -161,10 +161,10 @@ pyparsing
 pypdf==4.3.0
 PyPDF2==3.0.1
 pypng==0.20220715.0
-PyQt5==5.12.3
-PyQt5_sip==4.19.18
-PyQtChart==5.12
-PyQtWebEngine==5.12.1
+PyQt5
+PyQt5_sip
+PyQtChart
+PyQtWebEngine
 pyserial==3.5
 PySimpleGUI==5.0.3
 PySocks
