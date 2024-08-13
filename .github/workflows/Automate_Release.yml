@@ -40,12 +40,6 @@ jobs:
           name: MetrologyTestInterface
           path: dist/MetrologyTestInterface/MetrologyTestInterface.exe
 
-      - name: Download EXE
-        uses: actions/download-artifact@v4
-        with:
-          name: MetrologyTestInterface
-          path: ./downloaded-exe
-          
   release:
     needs: build
     runs-on: ubuntu-latest  # Use Ubuntu for the release job to utilize GitHub CLI
