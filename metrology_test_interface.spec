@@ -13,7 +13,7 @@ block_cipher = None
 a = Analysis(
     ['MetrologyTestInterface.py'],
     pathex=['.'],
-    binaries=[('Automation1C.dll', '.'), ('Automation1C64.dll', '.'), ('Automation1Compiler.dll', '.'), ('Automation1Compiler64.dll', '.')],
+    binaries=[('Automation1C.dll', '.'), ('Automation1C64.dll', '.'), ('Automation1Compiler.dll', '.'), ('Automation1Compiler64.dll', '.'),('python311.dll','.')],
     datas=[
         ('AerotechDataCal.py', '.'), 
         ('AerotechFormat.py', '.'), 
