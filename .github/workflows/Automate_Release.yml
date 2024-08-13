@@ -24,7 +24,7 @@ jobs:
 
       - name: Install Automation1 API
         run: |
-          pip install "./automation1-api"  # Install the API from the unzipped folder
+          pip install ./automation1-api/automation1  # Point to the correct directory containing setup.py
 
       - name: Clean previous builds
         run: |
