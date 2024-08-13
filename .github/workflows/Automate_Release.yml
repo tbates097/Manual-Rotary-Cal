@@ -25,7 +25,7 @@ jobs:
 
     - name: Create .exe using auto-py-to-exe
       run: |
-        python -m auto_py_to_exe --config auto-py-to-exe.json --output-dir dist --debug
+        python -m auto_py_to_exe --config auto-py-to-exe.json --output-dir dist
 
     - name: Upload .exe Artifact
       uses: actions/upload-artifact@v4
