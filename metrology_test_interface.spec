@@ -39,13 +39,14 @@ exe = EXE(
     pyz,
     a.scripts,
     [],
-    exclude_binaries=True,
+    exclude_binaries=False,
     name='MetrologyTestInterface',
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
     upx=True,
     console=False,
+    onefile=True  # Ensures that the executable is bundled as a single file
 )
 
 coll = COLLECT(
