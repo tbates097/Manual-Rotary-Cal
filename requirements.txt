@@ -201,7 +201,6 @@ rope
 rpds-py
 rsa==4.9
 Rtree
-ruamel-yaml-conda
 scipy
 Send2Trash
 simple-websocket==1.0.0
