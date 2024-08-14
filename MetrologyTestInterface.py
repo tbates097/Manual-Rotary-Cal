@@ -34,6 +34,7 @@ zreversedata = []
 plot_mean = 0
 col_axis_X = ''
 col_axis_Y = ''
+clientsocket = None
 
 def controller_def():
     ver = tk.Toplevel(window)
