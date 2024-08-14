@@ -57,7 +57,11 @@ jobs:
 
       - name: Build EXE with PyInstaller
         run: |
-          pyinstaller -F --add-binary "automation1-api/automation1/build/lib/automation1/references/Automation1C64.dll;automation1/references" --add-binary "automation1-api/automation1/build/lib/automation1/references/Automation1Compiler64.dll;automation1/references", --add-data "AerotechLogo.png;." MetrologyTestInterface.py
+          pyinstaller -F \
+          --add-binary "automation1-api/automation1/build/lib/automation1/references/Automation1C64.dll;automation1/references" \
+          --add-binary "automation1-api/automation1/build/lib/automation1/references/Automation1Compiler64.dll;automation1/references" \
+          --add-data "AerotechLogo.png;." \
+          MetrologyTestInterface.py
 
       - name: Verify EXE exists
         run: |
