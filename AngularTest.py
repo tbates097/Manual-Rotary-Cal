@@ -228,26 +228,41 @@ class angular:
         return round(max(abs(max(data)), abs(min(data))), 4)
 
     def post_process(self):
+        self.prepare_data_for_processing()
+        
+        # Generate data file based on the drive type
+        if self.data == 0:
+            self.generate_data_file()
+        
+        # Generate report PDF based on the test type
+        self.generate_report()
+    
+        messagebox.showinfo('Test Complete', 'Test Is Complete')
+
+    def prepare_data_for_processing(self):
+        # Prepares and organizes data for further processing
         self.raw_forward_X = [float(i) for i in self.raw_forward_X]
         self.raw_reverse_Y = [float(i) for i in self.raw_reverse_Y]
-
+    
         self.for_pos_fbk = list(self.raw_for_pos)
         self.rev_pos_fbk = list(self.raw_rev_pos)
         self.forward_X = list(self.raw_forward_X)
         self.forward_Y = list(self.raw_forward_Y)
         self.reverse_X = list(self.raw_reverse_X)
         self.reverse_Y = list(self.raw_reverse_Y)
-
+    
         self.current_date = datetime.date.today()
         self.current_time = datetime.datetime.now().time()
-
+    
         self.pk_pk_X = self.accuracy_X
         self.pk_pk_Y = self.accuracy_Y
         if self.test_type == "Bidirectional":
             self.rep_X = self.data_repeat_X
             self.rep_Y = self.data_repeat_Y
         self.test_name = 'Angular'
-        common_args = {
+    
+        # Common arguments used across data file and PDF generation
+        self.common_args = {
             'test_type': self.test_type,
             'sys_serial': self.sys_serial,
             'st_serial': self.st_serial,
@@ -266,52 +281,83 @@ class angular:
             'travel': self.travel,
             'test_name': self.test_name
         }
-
-        self.generate_data_and_report(common_args)
-
-        messagebox.showinfo('Test Complete', 'Test Is Complete')
-
-    def generate_data_and_report(self, common_args):
-        if self.drive == 'Automation1' and self.data == 0:
-            self.generate_a1_data_and_report(common_args)
+    
+    def generate_data_file(self):
+        if self.drive == 'Automation1':
+            status_item_configuration = a1.StatusItemConfiguration()
+            status_item_configuration.axis.add(a1.AxisStatusItem.DriveStatus, self.axis)
+            status_item_configuration.axis.add(a1.AxisStatusItem.AxisStatus, self.axis)
+            results = self.controller.runtime.status.get_status_items(status_item_configuration)
+    
+            self.rollovercounts = self.controller.runtime.parameters.axes[self.axis].motion.rollovercounts.value
+            axis_status = int(results.axis.get(a1.AxisStatusItem.AxisStatus, self.axis).value)
+            self.is_cal = (axis_status & a1.AxisStatus.CalibrationEnabled1D) == a1.AxisStatus.CalibrationEnabled1D
+    
+            a1_data_args = {**self.common_args,
+                            'rev_pos_fbk': self.rev_pos_fbk,
+                            'forward_X': self.forward_X,
+                            'forward_Y': self.forward_Y,
+                            'reverse_X': self.reverse_X,
+                            'reverse_Y': self.reverse_Y,
+                            'col_axis_X': self.col_axis_X,
+                            'col_axis_Y': self.col_axis_Y,
+                            'speed': self.speed}
+    
+            data_file = data_and_cal(**a1_data_args)
+            data_file.a1_angular_data_file(self.controller)
+    
         else:
-            self.generate_a3200_data_and_report(common_args)
+            a3200_data_args = {**self.common_args,
+                               'rev_pos_fbk': self.rev_pos_fbk,
+                               'reverse_X': self.reverse_X,
+                               'reverse_Y': self.reverse_Y,
+                               'col_axis_X': self.col_axis_X,
+                               'col_axis_Y': self.col_axis_Y}
+    
+            data_file = data_and_cal(**a3200_data_args)
+            data_file.angular_data_file()
+    
+    def generate_report(self):
+        if self.test_type == 'Bidirectional' and self.data == 0:
+            bi_pdf_args = {**self.common_args,
+                           'rev_pos_fbk': self.rev_pos_fbk,
+                           'forward_X': self.forward_X,
+                           'forward_Y': self.forward_Y,
+                           'reverse_X': self.reverse_X,
+                           'reverse_Y': self.reverse_Y,
+                           'for_rev': self.for_rev,
+                           'pk_pk_X': self.pk_pk_X,
+                           'pk_pk_Y': self.pk_pk_Y,
+                           'rep_X': self.rep_X,
+                           'rep_Y': self.rep_Y,
+                           'data': self.data}
+    
+            gen_pdf = aerotech_PDF(**bi_pdf_args)
+            gen_pdf.angular_pdf()
+        elif self.test_type == 'Unidirectional' and self.data == 0:
+            uni_pdf_args = {**self.common_args,
+                            'forward_X': self.forward_X,
+                            'forward_Y': self.forward_Y,
+                            'pk_pk_X': self.pk_pk_X,
+                            'pk_pk_Y': self.pk_pk_Y,
+                            'data': self.data}
+    
+            gen_pdf = aerotech_PDF(**uni_pdf_args)
+            gen_pdf.angular_pdf()
+            
+        elif self.data == 1:
+            import_data_args = {**self.common_args,
+                                'rev_pos_fbk': self.rev_pos_fbk,
+                                'reverse_X': self.reverse_X,
+                                'reverse_Y': self.reverse_Y,
+                                'col_axis_X': self.col_axis_X,
+                                'col_axis_Y': self.col_axis_Y,
+                                'data': self.data,
+                                'file_path': self.file_path}
+    
+            gen_pdf.angular_pdf()
+            data_file = data_and_cal(**import_data_args)
 
-    def generate_a1_data_and_report(self, common_args):
-        status_item_configuration = a1.StatusItemConfiguration()
-        status_item_configuration.axis.add(a1.AxisStatusItem.DriveStatus, self.axis)
-        status_item_configuration.axis.add(a1.AxisStatusItem.AxisStatus, self.axis)
-        results = self.controller.runtime.status.get_status_items(status_item_configuration)
-
-        self.rollovercounts = self.controller.runtime.parameters.axes[self.axis].motion.rollovercounts.value
-        axis_status = int(results.axis.get(a1.AxisStatusItem.AxisStatus, self.axis).value)
-        self.is_cal = (axis_status & a1.AxisStatus.CalibrationEnabled1D) == a1.AxisStatus.CalibrationEnabled1D
-
-        a1_data_args = {
-            **common_args,
-            'rev_pos_fbk': self.rev_pos_fbk,
-            'forward_X': self.forward_X,
-            'forward_Y': self.forward_Y,
-            'reverse_X': self.reverse_X,
-            'reverse_Y': self.reverse_Y,
-            'col_axis_X': self.col_axis_X,
-            'col_axis_Y': self.col_axis_Y,
-            'speed': self.speed
-        }
-        data_file = data_and_cal(**a1_data_args)
-        data_file.a1_angular_data_file(self.controller)
-
-    def generate_a3200_data_and_report(self, common_args):
-        a3200_data_args = {
-            **common_args,
-            'rev_pos_fbk': self.rev_pos_fbk,
-            'reverse_X': self.reverse_X,
-            'reverse_Y': self.reverse_Y,
-            'col_axis_X': self.col_axis_X,
-            'col_axis_Y': self.col_axis_Y
-        }
-        data_file = data_and_cal(**a3200_data_args)
-        data_file.data_file()
 
     def end_test(self):
         self.prompt_user("Restart test when ready")

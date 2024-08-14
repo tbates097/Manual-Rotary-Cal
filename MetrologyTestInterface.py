@@ -40,7 +40,7 @@ def controller_def():
     ver.title('Connection Type')
     ver.configure(bg='white')
 
-    custom_font = font.Font(family="Times New Roman", size=12, weight="bold", slant="italic")
+    custom_font = font.Font(family="Times New Roman", size=12, weight="bold")
 
     label = tk.Label(ver, text="Are you trying to connect via USB?", bg='white', font=custom_font)
     label.grid(row=0, column=0, columnspan=2, padx=10, pady=5)
@@ -159,12 +159,16 @@ def UI():
     def rotary_live_plot():
         global xforwarddata,xreversedata,yforwarddata,yreversedata
         global fig,ax, plot_mean
+        
+        plot_font = {'family': 'serif', 'weight': 'normal', 'size': 14}
+        title_font = {'family': 'serif', 'weight': 'normal', 'size': 16}
+        
         # Create a Figure and Axes for the plot
         fig, ax = plt.subplots()
         ax.set_facecolor("white")
-        ax.set_xlabel("Position")
-        ax.set_ylabel("Accuracy")
-        ax.set_title("Live Plot of Position vs Accuracy", fontsize=16)
+        ax.set_xlabel("Position", fontdict=plot_font, color='darkred')
+        ax.set_ylabel("Accuracy", fontdict=plot_font, color='darkred')
+        ax.set_title("Live Plot of Position vs Accuracy", fontdict=title_font)
         
         canvas = FigureCanvasTkAgg(fig, master=tab1,)
         canvas.get_tk_widget().grid(row=0, column=4, rowspan=21, columnspan=3, padx=1, pady=(13,0), sticky='nsew')
@@ -200,8 +204,8 @@ def UI():
             ax.relim()
             ax.autoscale_view()
             
-            ax.set_xlabel("Position", fontsize=14)
-            ax.set_ylabel("Accuracy", fontsize=14)
+            ax.set_xlabel("Position", font=plot_font)
+            ax.set_ylabel("Accuracy", font=plot_font)
             ax.set_title("Live Accuracy Plot", fontsize=16)
             
             # Set the font size for the tick labels
@@ -910,12 +914,15 @@ def UI():
         
         global xforwarddata,xreversedata,yforwarddata,yreversedata,col_axis_X,col_axis_Y
         global fig1,ax1,fig2,ax2, plot_mean
+        
+        plot_font = {'family': 'serif', 'weight': 'normal', 'size': 12}
+        title_font = {'family': 'serif', 'weight': 'normal', 'size': 16}
         # Create a Figure and Axes for the plot
         fig1, ax1 = plt.subplots()
         ax1.set_facecolor("white")
-        ax1.set_xlabel("Position",fontsize=12)
-        ax1.set_ylabel(f"{col_axis_X}",fontsize=12)
-        ax1.set_title("Angular Errors", fontsize=16)
+        ax1.set_xlabel("Position", fontdict=plot_font, color='darkred')
+        ax1.set_ylabel(f"{col_axis_X}", fontdict=plot_font, color='darkred')
+        ax1.set_title("Angular Errors", fontdict=title_font)
         
         canvas = FigureCanvasTkAgg(fig1, master=tab2,)
         canvas.get_tk_widget().grid(row=0, column=4, rowspan=10, columnspan=3, padx=1, pady=(17,0), sticky='nsew')
@@ -924,9 +931,9 @@ def UI():
         
         fig2, ax2 = plt.subplots()
         ax2.set_facecolor("white")
-        ax2.set_xlabel("Position",fontsize=12)
-        ax2.set_ylabel(f"{col_axis_Y}",fontsize=12)
-        ax2.set_title("Angular Errors", fontsize=16)
+        ax2.set_xlabel("Position",fontdict=plot_font, color='darkred')
+        ax2.set_ylabel(f"{col_axis_Y}",fontdict=plot_font, color='darkred')
+        #ax2.set_title("Angular Errors", fontdict=plot_font)
         
         canvas = FigureCanvasTkAgg(fig2, master=tab2,)
         canvas.get_tk_widget().grid(row=11, column=4, rowspan=10, columnspan=3, padx=1, pady=(7,0), sticky='nsew')
@@ -965,17 +972,17 @@ def UI():
             ax1.relim()
             ax1.autoscale_view()
             
-            ax1.set_xlabel("Position", fontsize=14)
-            ax1.set_ylabel(f"{col_axis_X}", fontsize=14)
-            ax1.set_title("Angular Errors", fontsize=16)
+            ax1.set_xlabel("Position", font=plot_font)
+            ax1.set_ylabel(f"{col_axis_X}", font=plot_font)
+            ax1.set_title("Angular Errors", font=plot_font)
             
             ax2.set_xlabel("Position")
             ax2.set_ylabel(f"{col_axis_Y}")
             #ax2.set_title("Angular Errors", fontsize=16)
             
             # Set the font size for the tick labels
-            ax1.tick_params(axis='both', which='major', labelsize=12)
-            ax2.tick_params(axis='both', which='major', labelsize=12)
+            ax1.tick_params(axis='both', which='major', labelsize=10)
+            ax2.tick_params(axis='both', which='major', labelsize=10)
             
             canvas.draw()
             
