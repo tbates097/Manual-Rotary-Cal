@@ -42,11 +42,11 @@ jobs:
       - name: Cache pip dependencies
         uses: actions/cache@v3
         with:
-          path: ~/.cache/pip
+          path: $(pip cache dir)
           key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
           restore-keys: |
             ${{ runner.os }}-pip-
-      
+
       - name: Install dependencies
         run: |
           pip install pyinstaller
@@ -56,7 +56,6 @@ jobs:
       - name: Build EXE with PyInstaller
         run: |
           pyinstaller -F --add-binary "automation1-api/automation1/build/lib/automation1/references/Automation1C64.dll;automation1/references" --add-binary "automation1-api/automation1/build/lib/automation1/references/Automation1Compiler64.dll;automation1/references" MetrologyTestInterface.py
-
 
       - name: Verify EXE exists
         run: |

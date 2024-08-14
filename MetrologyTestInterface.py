@@ -273,7 +273,7 @@ def UI():
         server_thread.start()
         
         global ani
-        ani = FuncAnimation(fig, update_plot, interval=100)        
+        ani = FuncAnimation(fig, update_plot, interval=100,cache_frame_data=False)        
         
     def ask_user_input(prompt, logger):
         logger.write(prompt + "\n")
@@ -292,6 +292,7 @@ def UI():
         threading.Thread(target=rotary_live_plot).start()
 
     def run_rotarycaltest():
+        global clientsocket
         try:
             rotarycaltest()
         finally:
@@ -1058,8 +1059,8 @@ def UI():
         server_thread.start()
         
         global ani1,ani2
-        ani1 = FuncAnimation(fig1, update_plot, interval=1000)
-        ani2 = FuncAnimation(fig2, update_plot, interval=1000)
+        ani1 = FuncAnimation(fig1, update_plot, interval=1000,cache_frame_data=False)
+        ani2 = FuncAnimation(fig2, update_plot, interval=1000,cache_frame_data=False)
         
     def angular_test_type_def():
         global test_type
@@ -1101,6 +1102,7 @@ def UI():
         threading.Thread(target=run_angulartest).start()
 
     def run_angulartest():
+        global clientsocket
         try:
             angulartest()
         finally:
