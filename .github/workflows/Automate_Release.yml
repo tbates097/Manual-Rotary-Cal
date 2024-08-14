@@ -43,9 +43,11 @@ jobs:
         uses: actions/cache@v3
         with:
           path: $(pip cache dir)
-          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          key: Windows-pip-${{ runner.os }}-python-${{ hashFiles('**/requirements.txt') }}
           restore-keys: |
             ${{ runner.os }}-pip-
+            ${{ runner.os }}-
+            pip-
 
       - name: Install dependencies
         run: |
